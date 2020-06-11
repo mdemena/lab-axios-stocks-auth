@@ -1,17 +1,21 @@
+<br>
+<br>
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
-  <h3 style="display:{{#if user}}block{{else}}none{{/if}};">Hi {{user.email}}</h3>
-  <div class="card-deck">
+<br>
+<h3 style="display:{{#if user}}block{{else}}none{{/if}};">Hi {{user.email}}</h3>
+<br>
+<div class="card-deck">
   {{#each user.stocks}}
-    <div class="card">
-      <img class="card-img-top" src="/images/graficos.jpg" alt="{{this.symbol}}" style="width:max-content">
-      <div class="card-body">
-        <h4 class="card-title">{{this.name}} - {{this.symbol}}</h4>
-      </div>
-      <form action="/stocks/{{this.symbol}}" method="post">
-        <a href="/stocks/{{this.symbol}}" class="btn btn-primary">View Graph</a>
-        <button type="submit" class="btn btn-danger">Sell</button>
-      </form>
+  <div class="card">
+    <img class="card-img-top" src="/images/graficos.jpg" alt="{{this.symbol}}" style="width:max-content">
+    <div class="card-body">
+      <h4 class="card-title">{{this.name}} - {{this.symbol}}</h4>
     </div>
+    <form action="/stocks/{{this.symbol}}" method="post">
+      <a href="/stocks/{{this.symbol}}" class="btn btn-primary">View Graph</a>
+      <button type="submit" class="btn btn-danger">Sell</button>
+    </form>
+  </div>s
   {{/each}}
-  </div>
+</div>
