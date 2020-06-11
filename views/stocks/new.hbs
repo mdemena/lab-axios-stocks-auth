@@ -1,0 +1,21 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<form autocomplete="off" action="/stocks" method="post">
+  <div class="form-group">
+    <label for="symbolId">Select a symbol</label>
+    <div class="autocomplete" style="width:300px;">
+      <input type="text" class="form-control" name="name" id="symbolName" placeholder="Put to search..">
+    </div>
+    <input type="hidden" class="form-control" name="symbol" id="symbolId">
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input type="text"
+      class="form-control" name="amount" id="amount" placeholder="Put amount to buy" value="0">
+  </div>
+  <button type="submit" class="btn btn-primary">ADD</button>
+</form>
+<script>
+  let auto = document.getElementById("symbolName");
+  autocomplete(auto);
+</script>

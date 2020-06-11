@@ -1,0 +1,82 @@
+<h1>Welcome to {{title}}</h1>
+<h2>Profile of {{email}}</h2>
+<h3>Total amount: {{amount}}</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Units</th>
+            <th>Price</th>
+            <th colspan="2">Actions <a class="btn btn-success" href="/stocks">Buy Stocks</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each stocks}}
+        <tr>
+            <td scope="row">{{this.symbol}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.units}}</td>
+            <td>{{this.price}}</td>
+            <td><a href="/stocks/{{this.symbol}}" class="btn btn-primary">View Graph</a><input type="hidden" class="data-graph" data-name="{{this.name}} ({{this.symbol}})" data-units="{{this.units}}" data-price="{{this.price}}"></td>
+            <td><form action="/stocks/{{this.symbol}}" method="post"><button type="submit" class="btn btn-danger">Sell</button></form></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Symbol</th>
+            <th>Transaction</th>
+            <th>Units</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each transactions}}
+        <tr>
+            <td scope="row">{{this.date}}</td>
+            <td>{{this.symbol}}</td>
+            <td>{{this.transactionType}}</td>
+            <td>{{this.units}}</td>
+            <td>{{this.price}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<canvas id="stock-chart" width="150" height="150"></canvas>
+<script>
+    function getColor(){
+        return 'rgb(' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ',' + Math.floor(Math.random()*255) + ')';
+    }
+    async function printTheChart() {
+        try {
+            const stockData = document.querySelectorAll('.data-graph');
+            const stockSymbols = [...stockData].map((data) => data['dataset'].name);
+            const stockAmount = [...stockData].map((data) => (parseFloat(data['dataset'].price)*parseFloat(data['dataset'].units)));
+            const stockColor = [...stockData].map((data) => getColor());
+
+            const ctx = document.getElementById('stock-chart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: stockSymbols,
+                    datasets: [
+                        {
+                            data: stockAmount,
+                            backgroundColor: stockColor,
+                        },
+                    ],
+                },
+                options:{responsive:true}
+            });
+        } catch (err) {
+            console.log('Error while getting the data: ', err);
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded',printTheChart(),false);
+</script>

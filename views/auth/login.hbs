@@ -1,0 +1,17 @@
+<h1>Welcome to {{title}}</h1>
+<p>Login</p>
+<form action="/login" method="post">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" id="email" required="required" placeholder="Put an email" value="{{email}}">
+      <small id="emailHelpId" class="form-text text-muted">Put an email</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password" id="password" required="required" placeholder="*******" value="{{password}}">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+    {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+    {{/if}}
+</form>
